@@ -7,6 +7,40 @@
     <title>MI JS</title>
   </head>
   <body>
-    <p class="bg-red-200">welcome !</p>
+    <section class="container mx-auto" id="todoapp">
+      <header class="mt-4">
+        <h1 class="text-2xl">Todos</h1>
+        <input
+          class="my-4 border-2 p-2 rounded-lg"
+          placeholder="What needs to be done?"
+          autofocus
+        />
+      </header>
+      <section class="main">
+        <input id="toggle-all" class="mb-4 border-b-2" type="checkbox" />
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list"></ul>
+      </section>
+      <footer class="footer">
+        <span id="todo-count" class="mb-4 inline-block px-2 border-2 rounded-lg">1 Item Left</span>
+        <ul class="flex gap-4 mb-4" id="filters">
+          <li>
+            <a class="border-b-2 border-blue-400" href="#/">All</a>
+          </li>
+          <li>
+            <a class="border-b-2 border-blue-400" href="#/active">Active</a>
+          </li>
+          <li>
+            <a class="border-b-2 border-blue-400" href="#/completed">Completed</a>
+          </li>
+        </ul>
+        <button
+          class="clear-completed bg-red-200 border-black border-2 px-2 py-1 rounded-md"
+          id="clear-completed"
+        >
+          Clear completed
+        </button>
+      </footer>
+    </section>
   </body>
 </html>
