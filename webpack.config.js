@@ -6,7 +6,17 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env", "@babel/preset-typescript"],
+            },
+          },
+          {
+            loader: "ts-loader",
+          },
+        ],
         exclude: /node_modules/,
       },
       {
@@ -21,6 +31,9 @@ module.exports = {
         },
       },
     ],
+  },
+  resolve: {
+    extensions: [".js", ".ts"],
   },
   plugins: [
     new HtmlWebpackPlugin({
