@@ -1,21 +1,33 @@
-import { type State } from "../types/shared";
-import counterView from "./counter";
-import filtersView from "./filters";
-import listView from "./list";
+import { Events } from "../types/shared";
 
-const appView = (target: HTMLElement, state: State) => {
-  const elementDoc = target.cloneNode(true) as Document;
+let app: HTMLTemplateElement;
 
-  const list = elementDoc.querySelector("#todo-list") as HTMLUListElement;
-  list.replaceWith(listView(list, state));
+const createAppElement = () => {
+  if (!app) {
+    app = document.getElementById("todo-app") as HTMLTemplateElement;
+  }
 
-  const counter = elementDoc.querySelector("#todo-count") as HTMLSpanElement;
-  counter.replaceWith(counterView(counter, state));
+  return app.content?.firstElementChild?.cloneNode(true)!;
+};
 
-  const filters = elementDoc.querySelector("#filters") as HTMLUListElement;
-  filters.replaceWith(filtersView(filters, state));
+const addEvent = (target: HTMLElement, events: Events) => {
+  console.log(target);
+  const element = target.querySelector("#new-todo") as HTMLInputElement;
+  element.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      events.addItem((e.target as HTMLInputElement).value);
+      (e.target as HTMLInputElement).value = "";
+    }
+  });
+};
 
-  return elementDoc;
+const appView = (targetElement: HTMLElement, _, events: Events) => {
+  const newApp = targetElement.cloneNode(true) as HTMLElement;
+  newApp.innerHTML = "";
+  newApp.appendChild(createAppElement());
+  addEvent(newApp, events);
+
+  return newApp;
 };
 
 export default appView;

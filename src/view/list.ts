@@ -1,24 +1,46 @@
-import { State } from "../types/shared";
+import { Events, State } from "../types/shared";
 import { Todo } from "../types/todo";
 
-const createTodoElement = ({ completed, text }: Todo) => `
-    <li class=" ${completed ? "completed" : null}  mb-4">
-        <div class="w-fit flex gap-4">
-            <input 
-            ${completed ? "checked" : ""}
-            class="toggle" 
-            type="checkbox">
-            <label>${text}</label>
-            <button class="destroy"></button>
-        </div>
-        <input class="edit" value="${text}">
-    </li>
-`;
+let template: HTMLTemplateElement;
 
-const listView = (targetElement: HTMLElement, { todos }: State): HTMLElement => {
+const createNewTodoNode = () => {
+  if (!template) {
+    template = document.getElementById("todo-item") as HTMLTemplateElement;
+  }
+
+  return template.content.children[0].cloneNode(true);
+};
+
+const getTodoElement = (todo: Todo, events: Events) => {
+  const { completed, text, id } = todo;
+
+  const element = createNewTodoNode() as HTMLTemplateElement;
+  const input = element.querySelector("#edit") as HTMLInputElement;
+  input.value = text;
+  input.style.display = "none";
+
+  const checkbox = element.querySelector("#toggle") as HTMLInputElement;
+  checkbox.id = String(id);
+
+  const label = element.querySelector("label") as HTMLLabelElement;
+  label.textContent = text;
+  label.htmlFor = String(id);
+
+  const destroyBtn = element.querySelector("#destroyBtn");
+  destroyBtn?.addEventListener("click", () => events.deleteItem(id));
+
+  if (completed) {
+    element.classList.add("completed");
+    checkbox.checked = true;
+  }
+
+  return element;
+};
+
+const listView = (targetElement: HTMLElement, { todos }: State, events: Events): HTMLElement => {
   const newList = targetElement.cloneNode(true) as HTMLElement;
-  const todoElements = todos.map(createTodoElement).join("");
-  newList.innerHTML = todoElements;
+  newList.innerHTML = "";
+  todos.map((todo) => getTodoElement(todo, events)).forEach((todo) => newList.appendChild(todo));
   return newList;
 };
 
