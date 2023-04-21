@@ -1,3 +1,4 @@
+import applyDiff from "./helpers/applyDiff";
 import { getTodos } from "./helpers/getTodos";
 import { addRegistry, renderRoot } from "./helpers/registry";
 import "./public/styles.css";
@@ -15,12 +16,16 @@ const state: State = {
   currentFilter: "All",
 };
 
-requestAnimationFrame(() => {
-  const main = document.getElementById("todoapp");
-  if (main) {
-    const newMain = renderRoot(main, state);
-    main.replaceWith(newMain);
-  } else {
-    throw new Error("todoapp not found");
-  }
-});
+const render = () => {
+  requestAnimationFrame(() => {
+    const main = document.getElementById("todoapp");
+    if (main) {
+      const newMain = renderRoot(main, state);
+      applyDiff(document.body, main, newMain);
+    } else {
+      throw new Error("todoapp not found");
+    }
+  });
+};
+
+render();
