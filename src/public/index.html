@@ -19,11 +19,16 @@
       <section class="main">
         <input id="toggle-all" class="mb-4 border-b-2" type="checkbox" />
         <label for="toggle-all">Mark all as complete</label>
-        <ul id="todo-list"></ul>
+        <ul id="todo-list" data-component="todos"></ul>
       </section>
       <footer class="footer">
-        <span id="todo-count" class="mb-4 inline-block px-2 border-2 rounded-lg">1 Item Left</span>
-        <ul class="flex gap-4 mb-4" id="filters">
+        <span
+          id="todo-count"
+          data-component="counter"
+          class="mb-4 inline-block px-2 border-2 rounded-lg"
+          >1 Item Left</span
+        >
+        <ul class="flex gap-4 mb-4" id="filters" data-component="filters">
           <li>
             <a class="border-b-2 border-blue-400" href="#/">All</a>
           </li>

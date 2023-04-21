@@ -1,8 +1,5 @@
+import { State } from "../types/shared";
 import { Todo } from "../types/todo";
-
-type ListViewProps = {
-  todos: Todo[];
-};
 
 const createTodoElement = ({ completed, text }: Todo) => `
     <li class=" ${completed ? "completed" : null}  mb-4">
@@ -18,8 +15,8 @@ const createTodoElement = ({ completed, text }: Todo) => `
     </li>
 `;
 
-const listView = (targetElement: HTMLUListElement, { todos }: ListViewProps) => {
-  const newList = targetElement.cloneNode(true) as HTMLUListElement;
+const listView = (targetElement: HTMLElement, { todos }: State): HTMLElement => {
+  const newList = targetElement.cloneNode(true) as HTMLElement;
   const todoElements = todos.map(createTodoElement).join("");
   newList.innerHTML = todoElements;
   return newList;
