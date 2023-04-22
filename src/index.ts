@@ -1,7 +1,7 @@
 import applyDiff from "./helpers/applyDiff";
 import { addRegistry, renderRoot } from "./helpers/registry";
 import "./public/styles.css";
-import { Events, type State } from "./types/shared";
+import { Events, Filters, type State } from "./types/shared";
 import appView from "./view/app";
 import counterView from "./view/counter";
 import filtersView from "./view/filters";
@@ -27,6 +27,25 @@ const events: Events = {
       text,
       completed: false,
     });
+    render();
+  },
+  completeAll: () => {
+    state.todos.forEach((t) => {
+      t.completed = true;
+    });
+    render();
+  },
+  toggleItemCompleted: (index) => {
+    const { completed } = state.todos[index];
+    state.todos[index].completed = !completed;
+    render();
+  },
+  clearCompleted: () => {
+    state.todos = state.todos.filter((t) => !t.completed);
+    render();
+  },
+  changeFilter: (filter: Filters) => {
+    state.currentFilter = filter;
     render();
   },
 };

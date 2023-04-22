@@ -8,11 +8,13 @@
     <link rel="icon" href="./favicon.ico" />
   </head>
   <body>
-    <template id="todo-item">
+    <template id="todo-item" class="p-6">
       <li>
-        <div class="view">
-          <input id="toggle" type="checkbox" />
-          <label></label>
+        <div class="view justify-between flex items-center gap-6 w-64">
+          <div>
+            <input id="toggle" type="checkbox" />
+            <label class="break-all"></label>
+          </div>
           <button class="ml-4 bg-red-100 border-2 rounded-lg px-2 py-1" id="destroyBtn">
             delete
           </button>

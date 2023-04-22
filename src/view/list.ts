@@ -42,12 +42,11 @@ const getTodoElement = (todo: Todo, events: Events, idx: number) => {
 const listView = (targetElement: HTMLElement, { todos }: State, events: Events): HTMLElement => {
   const newList = targetElement.cloneNode(true) as HTMLElement;
   newList.innerHTML = "";
-  const tailwindStyled = "mb-4 flex bg-green-200 flex-col gap-2 border-2 w-fit p-5 rounded-lg";
+  const tailwindStyled = "mb-4 flex flex-col border-2 w-fit p-5 rounded-lg";
   console.log(todos.length);
   if (todos.length) {
     tailwindStyled.split(" ").forEach((e) => newList.classList.add(e));
   }
-  newList.classList.add("bg-green-400");
   console.log(newList);
   todos
     .map((todo, idx) => getTodoElement(todo, events, idx))
