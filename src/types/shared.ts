@@ -14,4 +14,5 @@ export type Events = {
   clearCompleted: () => void;
   changeFilter: (f: Filters) => void;
   toggleItemCompleted: (i: number) => void;
+  updateItem: (i: number, t: string) => void;
 };

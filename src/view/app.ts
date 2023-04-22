@@ -19,6 +19,12 @@ const addEvent = (target: HTMLElement, events: Events) => {
       (e.target as HTMLInputElement).value = "";
     }
   });
+
+  const completeAllBtn = target.querySelector("#mark-all") as HTMLButtonElement;
+  completeAllBtn.addEventListener("click", () => events.completeAll());
+
+  const clearCompletedBtn = target.querySelector("#clear-completed") as HTMLButtonElement;
+  clearCompletedBtn.addEventListener("click", events.clearCompleted);
 };
 
 const appView = (targetElement: HTMLElement, _, events: Events) => {

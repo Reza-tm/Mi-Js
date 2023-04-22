@@ -48,6 +48,10 @@ const events: Events = {
     state.currentFilter = filter;
     render();
   },
+  updateItem: (index: number, text: string) => {
+    state.todos[index].text = text;
+    render();
+  },
 };
 
 const render = () => {

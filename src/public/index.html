@@ -8,18 +8,23 @@
     <link rel="icon" href="./favicon.ico" />
   </head>
   <body>
-    <template id="todo-item" class="p-6">
-      <li>
-        <div class="view justify-between flex items-center gap-6 w-64">
-          <div>
+    <template id="todo-item" class="p-6 w-96">
+      <li class="p-2">
+        <div class="view justify-between flex items-center gap-6">
+          <div class="w-64">
             <input id="toggle" type="checkbox" />
             <label class="break-all"></label>
+            <input id="edit" autofocus />
           </div>
-          <button class="ml-4 bg-red-100 border-2 rounded-lg px-2 py-1" id="destroyBtn">
-            delete
-          </button>
+          <div>
+            <button class="ml-4 bg-red-100 border-2 rounded-lg px-2 py-1" id="destroyBtn">
+              delete
+            </button>
+            <button class="ml-4 bg-green-100 border-2 rounded-lg px-2 py-1" id="editBtn">
+              edit
+            </button>
+          </div>
         </div>
-        <input id="edit" />
       </li>
     </template>
     <template id="todo-app">
@@ -34,8 +39,9 @@
           />
         </header>
         <section class="main">
-          <input id="toggle-all" class="mb-4 border-b-2" type="checkbox" />
-          <label for="toggle-all">Mark all as complete</label>
+          <button id="mark-all" class="border-2 px-2 py-1 bg-green-200 rounded-lg mb-4">
+            Mark all as complete
+          </button>
           <ul id="todo-list" class="flex flex-col gap-4" data-component="todos"></ul>
         </section>
         <footer class="footer">
