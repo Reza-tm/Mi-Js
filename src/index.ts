@@ -18,16 +18,14 @@ const state: State = {
 };
 
 const events: Events = {
-  deleteItem: (id: number) => {
-    const newTodos = state.todos.filter((e) => e.id !== id);
-    state.todos = newTodos;
+  deleteItem: (idx: number) => {
+    state.todos.splice(idx, 1);
     render();
   },
   addItem: (text: string) => {
     state.todos.push({
       text,
       completed: false,
-      id: state.todos.length + 1,
     });
     render();
   },

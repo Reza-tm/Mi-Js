@@ -11,8 +11,8 @@ const createNewTodoNode = () => {
   return template.content.children[0].cloneNode(true);
 };
 
-const getTodoElement = (todo: Todo, events: Events) => {
-  const { completed, text, id } = todo;
+const getTodoElement = (todo: Todo, events: Events, idx: number) => {
+  const { completed, text } = todo;
 
   const element = createNewTodoNode() as HTMLTemplateElement;
   const input = element.querySelector("#edit") as HTMLInputElement;
@@ -20,14 +20,16 @@ const getTodoElement = (todo: Todo, events: Events) => {
   input.style.display = "none";
 
   const checkbox = element.querySelector("#toggle") as HTMLInputElement;
-  checkbox.id = String(id);
+  checkbox.id = String(idx);
 
   const label = element.querySelector("label") as HTMLLabelElement;
   label.textContent = text;
-  label.htmlFor = String(id);
+  label.htmlFor = String(idx);
 
   const destroyBtn = element.querySelector("#destroyBtn");
-  destroyBtn?.addEventListener("click", () => events.deleteItem(id));
+  destroyBtn?.addEventListener("click", () => {
+    events.deleteItem(idx);
+  });
 
   if (completed) {
     element.classList.add("completed");
@@ -40,7 +42,16 @@ const getTodoElement = (todo: Todo, events: Events) => {
 const listView = (targetElement: HTMLElement, { todos }: State, events: Events): HTMLElement => {
   const newList = targetElement.cloneNode(true) as HTMLElement;
   newList.innerHTML = "";
-  todos.map((todo) => getTodoElement(todo, events)).forEach((todo) => newList.appendChild(todo));
+  const tailwindStyled = "mb-4 flex bg-green-200 flex-col gap-2 border-2 w-fit p-5 rounded-lg";
+  console.log(todos.length);
+  if (todos.length) {
+    tailwindStyled.split(" ").forEach((e) => newList.classList.add(e));
+  }
+  newList.classList.add("bg-green-400");
+  console.log(newList);
+  todos
+    .map((todo, idx) => getTodoElement(todo, events, idx))
+    .forEach((todo) => newList.appendChild(todo));
   return newList;
 };
 
