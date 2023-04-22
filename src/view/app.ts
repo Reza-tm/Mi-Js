@@ -13,8 +13,9 @@ const createAppElement = () => {
 const addEvent = (target: HTMLElement, events: Events) => {
   const element = target.querySelector("#new-todo") as HTMLInputElement;
   element.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      events.addItem((e.target as HTMLInputElement).value);
+    let value = (e.target as HTMLInputElement).value;
+    if (e.key === "Enter" && value.trim().length > 0) {
+      events.addItem(value);
       (e.target as HTMLInputElement).value = "";
     }
   });
